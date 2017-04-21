@@ -29,16 +29,16 @@ BSTree Create_BSTree(){
 	T[0]->sibling = NULL;
 	T[1]->fchild = &TT[4];
 	T[1]->sibling = &TT[2];
-	T[2]->fchild = NULL;
+	T[2]->fchild = &TT[5];
 	T[2]->sibling = &TT[3];
-	T[3]->fchild = &TT[5];
+	T[3]->fchild = &TT[6];
 	T[3]->sibling = NULL;
 	T[4]->fchild = NULL;
 	T[4]->sibling = NULL;
-	T[5]->fchild = &TT[7];
-	T[5]->sibling = &TT[6];
+	T[5]->fchild = NULL;
+	T[5]->sibling = NULL;
 	T[6]->fchild = NULL;
-	T[6]->sibling = NULL;
+	T[6]->sibling = &TT[7];
 	T[7]->fchild = NULL;
 	T[7]->sibling = NULL;
 	for(i = 0; i < N; i++)
@@ -64,8 +64,8 @@ Tree Create_Tree(){
 	T[1]->rc = &TT[4];
 	T[2]->lc = &TT[5];
 	T[2]->rc = &TT[6];
-	T[3]->lc = &TT[7];
-	T[3]->rc = NULL;
+	T[3]->lc = NULL;
+	T[3]->rc = &TT[7];
 	T[4]->lc = NULL;
 	T[4]->rc = NULL;
 	T[5]->lc = NULL;
@@ -80,7 +80,7 @@ Tree Create_Tree(){
 		T[i]->visit = 0;		
 	return T[0];
 }
-//µÚÒ»Ìâ:ÊµÏÖ¶þ²æÊ÷ÏÈÐò±éÀúµÄ·ÇµÝ¹éËã·¨ 
+//ç¬¬ä¸€é¢˜:å®žçŽ°äºŒå‰æ ‘å…ˆåºéåŽ†çš„éžé€’å½’ç®—æ³• 
 void InOrderTravesal(Tree BT){
 	Tree T = BT;
 	Tree Stack[MAXSIZE];
@@ -98,8 +98,8 @@ void InOrderTravesal(Tree BT){
 	}
 	printf("\n");
 }
-//µÚ¶þÌâ:Éè¼Æ·ÇµÝ¹éËã·¨Çó¶þ²æÊ÷µÄ¸ß 
-//´Ë´¦½áµãdata´æµÄÊÇ¸Ã½Úµã¶ÔÓ¦Ê÷µÄÉî¶È 
+//ç¬¬äºŒé¢˜:è®¾è®¡éžé€’å½’ç®—æ³•æ±‚äºŒå‰æ ‘çš„é«˜ 
+//æ­¤å¤„ç»“ç‚¹dataå­˜çš„æ˜¯è¯¥èŠ‚ç‚¹å¯¹åº”æ ‘çš„æ·±åº¦ 
 void TreeHeight(Tree BT){
 	Tree T = BT;
 	int FLOOR[6] = {0};
@@ -136,10 +136,7 @@ void TreeHeight(Tree BT){
 			}
 		}
 	}
-	if(!BT)
-		printf("The Height is %d\n",BT->data);
-	else
-		printf("The tree is blank!\n"); 
+	printf("The Height is %d\n",BT->data);
 //	int count = 0;
 //	for(int i = 0; i < 6; i++)
 //		if(FLOOR[i] != 0 && count < N){
@@ -147,7 +144,7 @@ void TreeHeight(Tree BT){
 //			printf("%d floor has %d nodes\n",i+1,FLOOR[i]);
 //		}
 }
-//µÚÈýÌâ:Éè¼Æ·ÇµÝ¹éËã·¨Çó¶þ²æÊ÷Ëù¶ÔÓ¦µÄÉ­ÁÖÖÐµÄÒ¶×Ó½áµãÊý 
+//ç¬¬ä¸‰é¢˜:è®¾è®¡éžé€’å½’ç®—æ³•æ±‚äºŒå‰æ ‘æ‰€å¯¹åº”çš„æ£®æž—ä¸­çš„å¶å­ç»“ç‚¹æ•° 
 void TreeLeavesNum(Tree BT){
 	int count = 0; 
 	Tree T = BT;
@@ -167,16 +164,12 @@ void TreeLeavesNum(Tree BT){
 	}
 	printf("Tree Leaves Num Is:%d\n",count);
 } 
-//µÚËÄÌâ:ÅÐ¶ÏÒ»¸ö¶þ²æÊ÷ÊÇ·ñÎªÍêÈ«¶þ²æÊ÷ 
+//ç¬¬å››é¢˜:åˆ¤æ–­ä¸€ä¸ªäºŒå‰æ ‘æ˜¯å¦ä¸ºå®Œå…¨äºŒå‰æ ‘ 
 void IsCompleteTree(Tree BT){
 	Tree Queue[MAXSIZE];
 	int rear,front,flag = 0,mark = 0,FLOOR[8]={0};
 	rear = front = 0;
 	Tree T = BT;
-	if(!T){
-		printf("The Tree is Blank!\n");
-		return ;
-	}
 	T->data = 0;
 	FLOOR[T->data]++;;
 	Queue[front++] = T;
@@ -220,7 +213,7 @@ void IsCompleteTree(Tree BT){
 		}
 	return ;
 }
-//¸½¼ÓÌâ:ÉèÊ÷²ÉÓÃº¢×ÓÐÖµÜ±íÊ¾·¨´æ·Å.ÓÃÀàCÓïÑÔÉè¼ÆËã·¨¼ÆËãÊ÷µÄ¸ß¶È 
+//é™„åŠ é¢˜:è®¾æ ‘é‡‡ç”¨å­©å­å…„å¼Ÿè¡¨ç¤ºæ³•å­˜æ”¾.ç”¨ç±»Cè¯­è¨€è®¾è®¡ç®—æ³•è®¡ç®—æ ‘çš„é«˜åº¦ 
 void TreeHeight_CSTree(BSTree BT){
 	BSTree T = BT;
 	BSTree Stack[MAXSIZE];
@@ -255,10 +248,7 @@ void TreeHeight_CSTree(BSTree BT){
 			}
 		}
 	}
-	if(!BT) 
-		printf("The Height is %d\n",BT->data);
-	else
-		printf("The tree is blank!\n");
+	printf("The Height is %d\n",BT->data);
 }
 int main(){
 	freopen("datain","r",stdin);
